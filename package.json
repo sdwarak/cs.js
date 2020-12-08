@@ -1,0 +1,20 @@
+{
+  "name": "coffeeshop",
+  "version": "1.0.0",
+  "description": "\"A CLI coffeeshop app\"",
+  "main": "bin/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "bin": {
+    "coffeeshop": "./bin/index.js"
+  },
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3"
+  }
+}
