@@ -31,7 +31,7 @@ class PaymentProcessor {
     calculate(){
         let offerAppliedItems = offers.apply(this.orderedItems);
         offerAppliedItems.getItems().forEach(ele => 
-            this.total += ele.getPrice()*(1+ele.getTax().toFixedDown(2))
+            this.total += (ele.getPrice()*(1+ele.getTax())).toFixedDown(2)
         );
         this.total = this.total.toFixedDown(2);
         return this.total;
