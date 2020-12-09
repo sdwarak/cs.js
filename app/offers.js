@@ -5,8 +5,8 @@ const days_of_week = [ 'Sunday', 'Monday','Tuesday', 'Wednesday', 'Thursday', 'F
 const display = () => {
     console.log('\nGet a beverage at a discounted price when you order a sandwich.' +
       '\nIf the total is over 18 dollar get a beverage for free.' +
-      '\nOffers cannot be combined.\n') +
-      ('\nAn additional 5 percent discount all coffee powders on Wednesday.\n');
+      '\nOffers cannot be combined.\n' + 
+      '\nAn additional 5 percent discount all coffee powders on Wednesdays.\n');
 }
 const calculateTotalBeforeTaxes = (orderedItems) => {
     let totalBeforeTax = 0;
