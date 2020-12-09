@@ -50,13 +50,9 @@ const discountForCatergoryOnADay = (orderedItems,category,discount,day) => {
 }
 
 const apply = orderedItems => {
-    let totalBeforeTax = 0;
-    let isDiscount = false;
-    totalBeforeTax = calculateTotalBeforeTaxes(orderedItems);
-    isDiscount = setIsDiscountForACategory(orderedItems,'Sandwich');
-    if (totalBeforeTax>18){
+    if (calculateTotalBeforeTaxes(orderedItems)>18){
         setDiscountForCategory(orderedItems,'Beverage',1);
-    } else if (isDiscount) {
+    } else if (setIsDiscountForACategory(orderedItems,'Sandwich')) {
         setDiscountForCategory(orderedItems,'Beverage',0.25);
     }
     discountForCatergoryOnADay(orderedItems,'Coffee Powder',0.05, days_of_week[3]);
