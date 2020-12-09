@@ -33,5 +33,20 @@
     "category": "Sandwich"},
     {"name": "Sourdough",
     "price": 18.00,
-    "category": "Sandwich"}
+    "category": "Sandwich"},
+    {"name": "Sumantra",
+    "price": 2.65,
+    "category": "Coffee Powder"},
+    {"name": "Dark Roast",
+    "price": 2.75,
+    "category": "Coffee Powder"},
+    {"name": "Medium Roast",
+    "price": 2.85,
+    "category": "Coffee Powder"},
+    {"name": "Light Roast",
+    "price": 2.95,
+    "category": "Coffee Powder"},
+    {"name": "Fresh Brew",
+    "price": 3.05,
+    "category": "Coffee Powder"}
 ]

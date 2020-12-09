@@ -1,9 +1,12 @@
 const utils_number = require('../utils/number');
 
+const days_of_week = [ 'Sunday', 'Monday','Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', ]
+
 const display = () => {
     console.log('\nGet a beverage at a discounted price when you order a sandwich.' +
       '\nIf the total is over 18 dollar get a beverage for free.' +
-      '\nOffers cannot be combined.\n')
+      '\nOffers cannot be combined.\n') +
+      ('\nAn additional 5 percent discount all coffee powders on Wednesday.\n');
 }
 const calculateTotalBeforeTaxes = (orderedItems) => {
     let totalBeforeTax = 0;
@@ -35,16 +38,28 @@ const setDiscountForCategory = (orderedItems,category,discount) => {
     });
 }
 
+const discountForCatergoryOnADay = (orderedItems,category,discount,day) => {
+    const today = new Date();
+    if ( Array.prototype.indexOf.call(days_of_week, day) == today.getDay()) {
+        orderedItems.getItems().forEach(ele => {
+            if(ele.getCategory() == category){
+                ele.setPrice((ele.getPrice()*(1-discount)).toFixedDown(2));
+            };
+        });
+    }
+}
+
 const apply = orderedItems => {
     let totalBeforeTax = 0;
     let isDiscount = false;
     totalBeforeTax = calculateTotalBeforeTaxes(orderedItems);
     isDiscount = setIsDiscountForACategory(orderedItems,'Sandwich');
     if (totalBeforeTax>18){
-        setDiscountForCategory(orderedItems,'Beverage',1)
+        setDiscountForCategory(orderedItems,'Beverage',1);
     } else if (isDiscount) {
-        setDiscountForCategory(orderedItems,'Beverage',0.25)
+        setDiscountForCategory(orderedItems,'Beverage',0.25);
     }
+    discountForCatergoryOnADay(orderedItems,'Coffee Powder',0.05, days_of_week[3]);
     return orderedItems;
 }
 

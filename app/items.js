@@ -36,9 +36,11 @@ class Items {
     getTax(){
         // Taxes are in percentage
         if (this.category === "Beverage") {
-            return 0.12
+            return 0.12;
         } else if (this.category === "Sandwich"){
-            return 0.08
+            return 0.08;
+        } else {
+            return 0.10;
         }
     }
 
