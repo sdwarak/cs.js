@@ -29,8 +29,8 @@ class PaymentProcessor {
     }
 
     calculate(){
-        let offeredAppliedItems = offers.apply(this.orderedItems);
-        offeredAppliedItems.getItems().forEach(ele => 
+        let offerAppliedItems = offers.apply(this.orderedItems);
+        offerAppliedItems.getItems().forEach(ele => 
             this.total += ele.getPrice()*(1+ele.getTax())
         );
         this.total = this.total.toFixedDown(2);
