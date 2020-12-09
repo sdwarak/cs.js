@@ -1,3 +1,5 @@
+const utils_number = require('../utils/number');
+
 const display = () => {
     console.log('\nGet a beverage at a discounted price when you order a sandwich.' +
       '\nIf the total is over 18 dollar get a beverage for free.' +
@@ -26,7 +28,7 @@ const setIsDiscountForACategory = (orderedItems,category) => {
 const setDiscountForCategory = (orderedItems,category,discount) => {
     orderedItems.getItems().every(ele => {
         if(ele.getCategory() == category){
-            ele.setPrice(ele.getPrice()*(1-discount));
+            ele.setPrice((ele.getPrice()*(1-discount)).toFixedDown(2));
             return false;
         };
         return true;
