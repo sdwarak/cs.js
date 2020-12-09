@@ -6,6 +6,7 @@ const utils_number = require('../utils/number');
 var itemModule = require('../app/items');
 var coffeeShopModule = require('../app/coffeeshop');
 var paymentProcessorModule = require('../app/payment_processor');
+var offers = require('../app/offers');
 
 var payment_processor = new paymentProcessorModule.PaymentProcessor();
 
@@ -26,7 +27,7 @@ for (let i = 0; i < file_items.length; i++) {
 var coffeshop= new coffeeShopModule.CoffeeShop(menu_items);
 coffeshop.display();
 coffeshop.showMenu();
-payment_processor.display();
+offers.display();
 
 console.log("Hey, what do you like to Order?")
 console.log("Seperate your answers by a comma.")
