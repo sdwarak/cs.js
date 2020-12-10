@@ -37,6 +37,10 @@ items = items.split(',');
 coffeshop.getItems().filter(function(ele){ 
     for (let i = 0; i < items.length; i++) {
         if(ele.getName() == items[i]){
+            params = {"name": ele.getName(),
+                      "category": ele.getCategory(),
+                      "price": ele.getPrice()}
+            ele = new itemModule.Items(params);
             payment_processor.purchase(ele);
         }
     }
