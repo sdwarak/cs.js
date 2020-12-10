@@ -91,16 +91,12 @@ var CoffeePowderDiscount = function() {
 
 const apply = orderedItems => {
     var offers = new Offers();
-    var orderOver18Discount = new OrderOver18Discount();
-    var sandwichDiscount = new SandwichDiscount();
-    var coffeePowderDiscount = new CoffeePowderDiscount();
- 
-    offers.setStrategy(orderOver18Discount);
-    orderedItems = offers.calculate(orderedItems);
-    offers.setStrategy(sandwichDiscount);
-    orderedItems = offers.calculate(orderedItems);
-    offers.setStrategy(coffeePowderDiscount);
-    orderedItems = offers.calculate(orderedItems);
+    orderedItems = [new OrderOver18Discount(),
+                    new SandwichDiscount(),
+                    new CoffeePowderDiscount()].reduce((ol,rule) => {
+                        offers.setStrategy(rule);
+                        return offers.calculate(orderedItems);
+                    },orderedItems);
     return orderedItems;
 }
 
