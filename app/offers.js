@@ -1,6 +1,6 @@
 const utils_number = require('../utils/number');
 
-const days_of_week = [ 'Sunday', 'Monday','Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', ]
+const days_of_week = [ 'Sunday', 'Monday','Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
 const display = () => {
     console.log('\nGet a beverage at a discounted price when you order a sandwich.' +
@@ -89,11 +89,13 @@ var CoffeePowderDiscount = function() {
     }
 }; 
 
+const rules = [new OrderOver18Discount(),
+    new SandwichDiscount(),
+    new CoffeePowderDiscount()]
+
 const apply = orderedItems => {
     var offers = new Offers();
-    orderedItems = [new OrderOver18Discount(),
-                    new SandwichDiscount(),
-                    new CoffeePowderDiscount()].reduce((ol,rule) => {
+    orderedItems = rules.reduce((ol,rule) => {
                         offers.setStrategy(rule);
                         return offers.calculate(orderedItems);
                     },orderedItems);
