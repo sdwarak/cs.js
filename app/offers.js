@@ -8,6 +8,7 @@ const display = () => {
       '\nOffers cannot be combined.\n' + 
       '\nAn additional 5 percent discount all coffee powders on Wednesdays.\n');
 }
+
 const calculateTotalBeforeTaxes = (orderedItems) => {
     let totalBeforeTax = 0;
     orderedItems.getItems().forEach(ele => 
@@ -49,13 +50,57 @@ const discountForCatergoryOnADay = (orderedItems,category,discount,day) => {
     }
 }
 
-const apply = orderedItems => {
-    if (calculateTotalBeforeTaxes(orderedItems)>18){
-        setDiscountForCategory(orderedItems,'Beverage',1);
-    } else if (setIsDiscountForACategory(orderedItems,'Sandwich')) {
-        setDiscountForCategory(orderedItems,'Beverage',0.25);
+var Offers = function() {
+    this.rule = "";
+};
+ 
+Offers.prototype = {
+    setStrategy: function(rule) {
+        this.rule = rule;
+    },
+ 
+    calculate: function(orderedItems) {
+        return this.rule.calculate(orderedItems);
     }
-    discountForCatergoryOnADay(orderedItems,'Coffee Powder',0.05, days_of_week[3]);
+};
+ 
+var OrderOver18Discount = function() {
+    this.calculate = function(orderedItems) {
+        if (calculateTotalBeforeTaxes(orderedItems)>18) {
+            setDiscountForCategory(orderedItems,'Beverage',1);
+        }
+        return orderedItems;
+    }
+};
+ 
+var SandwichDiscount = function() {
+    this.calculate = function(orderedItems) {
+        if (setIsDiscountForACategory(orderedItems,'Sandwich')) {
+            setDiscountForCategory(orderedItems,'Beverage',0.25);
+        }
+        return orderedItems;
+    }
+};
+ 
+var CoffeePowderDiscount = function() {
+    this.calculate = function(orderedItems) {
+        discountForCatergoryOnADay(orderedItems,'Coffee Powder',0.05, days_of_week[3]);
+        return orderedItems;
+    }
+}; 
+
+const apply = orderedItems => {
+    var offers = new Offers();
+    var orderOver18Discount = new OrderOver18Discount();
+    var sandwichDiscount = new SandwichDiscount();
+    var coffeePowderDiscount = new CoffeePowderDiscount();
+ 
+    offers.setStrategy(orderOver18Discount);
+    orderedItems = offers.calculate(orderedItems);
+    offers.setStrategy(sandwichDiscount);
+    orderedItems = offers.calculate(orderedItems);
+    offers.setStrategy(coffeePowderDiscount);
+    orderedItems = offers.calculate(orderedItems);
     return orderedItems;
 }
 
